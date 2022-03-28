@@ -10,8 +10,10 @@
 
         public Meals Name { get; set; }
 
+        [Required]
         public DateTime StartDate { get; set; }
 
+        [Required]
         public DateTime EndDate { get; set; }
 
         public virtual ICollection<FoodMeal> FoodMeals { get; set; }

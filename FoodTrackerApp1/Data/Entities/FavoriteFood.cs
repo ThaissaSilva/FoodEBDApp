@@ -3,7 +3,6 @@
     public class FavoriteFood
     {
         [Key]
-        [Required]
         public string UserId { get; set; }
 
         [Required]
