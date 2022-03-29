@@ -1,0 +1,33 @@
+﻿@page
+@model FoodTrackerApp.Pages.Admin.IndexModel
+@{
+}
+
+<h4>Excel Import</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <dt>
+                    <label asp-for="FileUpload.formFile" class="control-label">Import Here:</label>
+                </dt>
+                <dd>
+                    <input asp-for="FileUpload.formFile" class="form-control" type="file">
+                    <span asp-validation-for="FileUpload.formFile" class="text-danger"></span>
+                </dd>
+            </div>
+            <div class="form-group">
+                <input asp-page-handler="Upload" class="btn btn-primary" type="submit" value="Upload" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

@@ -1,3 +1,5 @@
+using FoodTrackerApp.Services;
+using FoodTrackerApp.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<TrackerDbContext>();
+
+//add Interfaces
+builder.Services.AddScoped<IExcelImportService, ExcelImportService>();
 
 builder.Services.AddRazorPages();
 
