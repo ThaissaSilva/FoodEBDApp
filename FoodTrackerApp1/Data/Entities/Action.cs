@@ -8,8 +8,9 @@
         [Required]
         public string Name { get; set; }
 
-        public Action()
+        public Action(string name)
         {
+            this.Name = name;
             this.Foods = new HashSet<Food>();
         }
 

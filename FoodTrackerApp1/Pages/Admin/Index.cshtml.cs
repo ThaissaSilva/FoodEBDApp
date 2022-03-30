@@ -1,3 +1,4 @@
+using FoodTrackerApp.Model;
 using FoodTrackerApp.Services.Interfaces;
 using OfficeOpenXml;
 
@@ -22,21 +23,9 @@ namespace FoodTrackerApp.Pages.Admin
             using (var memoryStream = new MemoryStream())
             {
                 await FileUpload.formFile.CopyToAsync(memoryStream);
-
-                // Upload the file if less than 2 MB
-                using (var ms = new ExcelPackage(memoryStream))
-                {
-                    ExcelWorksheet ws = ms.Workbook.Worksheets[1];
-                    var count = ws.Dimension.Rows;
-                };                  
+                await this.ExcelImportService.FileImportAsync(memoryStream);
             }
-            //this.ExcelImportService.FileImport();
             return RedirectToPage("./Index");
         }
-    }
-
-    public class FileUpload
-    {
-        public IFormFile formFile { get; set; }   
     }
 }

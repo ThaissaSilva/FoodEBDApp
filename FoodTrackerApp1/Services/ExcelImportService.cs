@@ -1,11 +1,26 @@
-﻿using FoodTrackerApp.Services.Interfaces;
-
+﻿
 namespace FoodTrackerApp.Services
 {
     public class ExcelImportService : IExcelImportService
     {
-        public void FileImport()
+        private readonly FoodTrackerApp.Data.TrackerDbContext _context;
+
+        public ExcelImportService(FoodTrackerApp.Data.TrackerDbContext context)
         {
+            _context = context;
+        }
+
+        public async Task FileImportAsync(MemoryStream memoryStream)
+        {            
+            // Upload the file if less than 2 MB
+            using (var ms = new ExcelPackage(memoryStream))
+            {
+                await InsertActions(ms);                
+                await InsertCategories(ms);
+                await InsertFoods(ms);
+            };
+
+
             //List & lt; CustomerModel & gt; customers = new List& lt; CustomerModel & gt; ();
             //string filePath = string.Empty;
             //if (postedFile != null)
@@ -36,7 +51,68 @@ namespace FoodTrackerApp.Services
             //            });
             //        }
             //    }
-            
+
+        }
+
+        private async Task InsertActions(ExcelPackage ms)
+        {
+            ExcelWorksheet ws = ms.Workbook.Worksheets[0];
+            var rowSize = ws.Dimension.Rows;
+            var columSize = ws.Dimension.Columns;
+
+            for (int l = 2; l <= rowSize; l++)
+            {
+                //var cId = 1;
+                var cName = 2;
+
+                //var id = Int32.Parse(ws.Cells[l, cId].Value.ToString());
+                var name = ws.Cells[l, cName].Value.ToString();
+
+                var action = new Data.Entities.Action(name);
+
+                _context.Actions.Add(action);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        private async Task InsertCategories(ExcelPackage ms)
+        {
+            ExcelWorksheet ws = ms.Workbook.Worksheets[1];
+            var rowSize = ws.Dimension.Rows;
+            var columSize = ws.Dimension.Columns;
+
+            for (int l = 2; l <= rowSize; l++)
+            {               
+                var cName = 2;
+              
+                var name = ws.Cells[l, cName].Value.ToString();
+
+                var category = new Data.Entities.Category(name);
+
+                _context.Categories.Add(category);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        private async Task InsertFoods(ExcelPackage ms)
+        {
+            ExcelWorksheet ws = ms.Workbook.Worksheets[2];
+            var rowSize = ws.Dimension.Rows;
+            var columSize = ws.Dimension.Columns;
+
+            for (int l = 2; l <= rowSize; l++)
+            {
+                var cName = 2;
+
+                var name = ws.Cells[l, cName].Value.ToString();
+
+                var food = new Data.Entities.Food(name);
+
+                _context.Foods.Add(food);
+                await _context.SaveChangesAsync();
+
+                //falta acrescentar o Id da category, ver se deve aperecer no page ou s'o na base de dados
+            }
         }
     }  
 }

@@ -2,8 +2,7 @@
 {
     public interface IExcelImportService
     {
-        public void FileImport();
-        
+        public Task FileImportAsync(MemoryStream memoryStream);
     }
 }
 
