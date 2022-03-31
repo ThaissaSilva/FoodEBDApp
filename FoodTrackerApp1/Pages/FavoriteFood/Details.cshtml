@@ -1,0 +1,25 @@
+﻿@page
+@model FoodTrackerApp.Pages.FavoriteFood.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>FavoriteFood</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FavoriteFood.CreatedOn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FavoriteFood.CreatedOn)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.FavoriteFood.UserId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

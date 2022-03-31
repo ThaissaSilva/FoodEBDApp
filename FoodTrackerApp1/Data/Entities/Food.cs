@@ -12,6 +12,10 @@
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
+        public Food()
+        {
+        }
+
         public Food(string foodName)
         {
             this.FoodName = foodName;

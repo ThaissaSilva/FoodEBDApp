@@ -1,5 +1,4 @@
-﻿
-namespace FoodTrackerApp.Pages.Food
+﻿namespace FoodTrackerApp.Pages.Meal
 {
     public class DetailsModel : PageModel
     {
@@ -10,18 +9,18 @@ namespace FoodTrackerApp.Pages.Food
             _context = context;
         }
 
-        public FoodTrackerApp.Data.Entities.Food Food { get; set; }
+        public FoodTrackerApp.Data.Entities.Meal Meal { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Food = await _context.Foods.FirstOrDefaultAsync(m => m.Id == id);
+            Meal = await _context.Meals.FirstOrDefaultAsync(m => m.UserId == id);
 
-            if (Food == null)
+            if (Meal == null)
             {
                 return NotFound();
             }

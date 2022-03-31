@@ -6,11 +6,19 @@ namespace FoodTrackerApp.Data.Entities
         [Key]
         public string UserId { get; set; }
 
-        [Required]
         public IdentityUser User { get; set; }
 
-        public Food Food { get; set; }
+        public List<Food> Foods { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public BlacklistedFood()
+        {
+        }
+
+        public BlacklistedFood(List<Food> foods)
+        {
+            Foods = foods;
+        }
     }
 }

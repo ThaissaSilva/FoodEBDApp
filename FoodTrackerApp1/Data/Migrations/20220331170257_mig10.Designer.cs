@@ -4,6 +4,7 @@ using FoodTrackerApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodTrackerApp.Data.Migrations
 {
     [DbContext(typeof(TrackerDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220331170257_mig10")]
+    partial class mig10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,9 +180,6 @@ namespace FoodTrackerApp.Data.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("MealUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Name")
                         .HasColumnType("int");
 
@@ -192,8 +191,6 @@ namespace FoodTrackerApp.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId");
-
-                    b.HasIndex("MealUserId");
 
                     b.HasIndex("UserId1");
 
@@ -497,10 +494,6 @@ namespace FoodTrackerApp.Data.Migrations
 
             modelBuilder.Entity("FoodTrackerApp.Data.Entities.Meal", b =>
                 {
-                    b.HasOne("FoodTrackerApp.Data.Entities.Meal", null)
-                        .WithMany("Meals")
-                        .HasForeignKey("MealUserId");
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId1")
@@ -579,8 +572,6 @@ namespace FoodTrackerApp.Data.Migrations
             modelBuilder.Entity("FoodTrackerApp.Data.Entities.Meal", b =>
                 {
                     b.Navigation("FoodMeals");
-
-                    b.Navigation("Meals");
                 });
 #pragma warning restore 612, 618
         }

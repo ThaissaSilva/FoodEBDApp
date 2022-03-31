@@ -9,3 +9,4 @@ global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Mvc;
 global using FoodTrackerApp.Services.Interfaces;
 global using OfficeOpenXml;
+global using Microsoft.AspNetCore.Mvc.Rendering;

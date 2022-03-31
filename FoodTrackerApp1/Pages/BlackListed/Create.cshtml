@@ -1,0 +1,44 @@
+﻿@page
+@model FoodTrackerApp.Pages.BlackListed.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>BlacklistedFood</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BlacklistedFood.UserId" class="control-label"></label>
+                <input asp-for="BlacklistedFood.UserId" class="form-control" />
+                <span asp-validation-for="BlacklistedFood.UserId" class="text-danger"></span>
+            </div>           
+            <div class="form-group"> 
+                <select asp-for="SelectedFoods" class="form-control" asp-items="@Model.Foods">
+                    <option value="">-- Select Test --</option>
+                    </select>              
+            </div>
+            <div class="form-group">
+                <label asp-for="BlacklistedFood.CreatedOn" class="control-label"></label>
+                <input asp-for="BlacklistedFood.CreatedOn" class="form-control" />
+                <span asp-validation-for="BlacklistedFood.CreatedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
