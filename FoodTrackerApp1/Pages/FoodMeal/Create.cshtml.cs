@@ -1,28 +1,26 @@
 ﻿
 using System.Security.Claims;
 
-
-namespace FoodTrackerApp.Pages.Meal
+namespace FoodTrackerApp.Pages.FoodMeal
 {
     public class CreateModel : PageModel
     {
         private readonly FoodTrackerApp.Data.TrackerDbContext _context;
-        
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateModel(FoodTrackerApp.Data.TrackerDbContext context, IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
+        public CreateModel(FoodTrackerApp.Data.TrackerDbContext context)
+        {            
             _context = context;
         }
 
         public IActionResult OnGet()
         {
+            ViewData["FoodID"] = new SelectList(_context.Foods, "Id", "FoodName");
+            ViewData["MealID"] = new SelectList(_context.Meals, "Id", "Name");
             return Page();
         }
 
         [BindProperty]
-        public FoodTrackerApp.Data.Entities.Meal Meal { get; set; }
+        public FoodTrackerApp.Data.Entities.FoodMeal FoodMeal { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -31,12 +29,8 @@ namespace FoodTrackerApp.Pages.Meal
             {
                 return Page();
             }
-            
-            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            Meal.UserId = userId;
-
-            _context.Meals.Add(Meal);
+                      
+            _context.FoodMeals.Add(FoodMeal);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

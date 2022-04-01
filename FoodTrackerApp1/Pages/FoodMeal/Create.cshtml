@@ -1,0 +1,49 @@
+﻿
+@page
+@model FoodTrackerApp.Pages.FoodMeal.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>FoodMeal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FoodMeal.MealId" class="control-label"></label>
+                <select asp-for="FoodMeal.MealId" class ="form-control" asp-items= "ViewBag.MealId"></select>
+                <span asp-validation-for="FoodMeal.MealId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FoodMeal.FoodID" class="control-label"></label>
+                <select asp-for="FoodMeal.FoodID" class ="form-control" asp-items="ViewBag.FoodID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FoodMeal.Amount" class="control-label"></label>
+                <input asp-for="FoodMeal.Amount" class="form-control" />
+                <span asp-validation-for="FoodMeal.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FoodMeal.Portion" class="control-label"></label>
+                <select asp-for="FoodMeal.Portion" class="form-control" asp-items="Html.GetEnumSelectList<Portion>()"></select>
+                <span asp-validation-for="FoodMeal.Portion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

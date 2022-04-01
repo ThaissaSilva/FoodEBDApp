@@ -10,5 +10,8 @@
 
         [Required]
         public int Age { get; set; }
+
+        [Required]
+        public char Gender { get; set; }
     }
 }

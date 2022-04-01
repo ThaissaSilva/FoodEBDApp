@@ -4,8 +4,11 @@
     {
         private readonly FoodTrackerApp.Data.TrackerDbContext _context;
 
-        public CreateModel(FoodTrackerApp.Data.TrackerDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public CreateModel(FoodTrackerApp.Data.TrackerDbContext context, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 
@@ -33,6 +36,10 @@
             {
                 return Page();
             }
+
+            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            BlacklistedFood.UserId = userId;
 
             _context.BlacklistedFoods.Add(BlacklistedFood);
             await _context.SaveChangesAsync();

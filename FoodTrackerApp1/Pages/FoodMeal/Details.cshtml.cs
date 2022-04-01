@@ -1,6 +1,5 @@
 ﻿
-
-namespace FoodTrackerApp.Pages.BlackListed
+namespace FoodTrackerApp.Pages.FoodMeal
 {
     public class DetailsModel : PageModel
     {
@@ -11,18 +10,19 @@ namespace FoodTrackerApp.Pages.BlackListed
             _context = context;
         }
 
-        public BlacklistedFood BlacklistedFood { get; set; }
+        public FoodTrackerApp.Data.Entities.FoodMeal FoodMeal { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int? foodId, int? mealId)
         {
-            if (id == null)
+            if (foodId == null && mealId == null)
             {
                 return NotFound();
             }
 
-            BlacklistedFood = await _context.BlacklistedFoods.FirstOrDefaultAsync(m => m.UserId == id);
+            FoodMeal = await _context.FoodMeals
+                .Include(f => f.Food).FirstOrDefaultAsync(m => m.MealId == mealId && m.FoodID == foodId);
 
-            if (BlacklistedFood == null)
+            if (FoodMeal == null)
             {
                 return NotFound();
             }

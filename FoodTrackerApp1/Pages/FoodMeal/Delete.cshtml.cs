@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FoodTrackerApp.Data;
 using FoodTrackerApp.Data.Entities;
 
-namespace FoodTrackerApp.Pages.Meal
+namespace FoodTrackerApp.Pages.FoodMeal
 {
     public class DeleteModel : PageModel
     {
@@ -20,36 +20,37 @@ namespace FoodTrackerApp.Pages.Meal
         }
 
         [BindProperty]
-        public FoodTrackerApp.Data.Entities.Meal Meal { get; set; }
+        public FoodTrackerApp.Data.Entities.FoodMeal FoodMeal { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync(int? foodId, int? mealId)
         {
-            if (id == null)
+            if (foodId == null && mealId == null)
             {
                 return NotFound();
             }
 
-            Meal = await _context.Meals.FirstOrDefaultAsync(m => m.Id == id);
+            FoodMeal = await _context.FoodMeals
+                .Include(f => f.Food).FirstOrDefaultAsync(m => m.MealId == mealId && m.FoodID == foodId);
 
-            if (Meal == null)
+            if (FoodMeal == null)
             {
                 return NotFound();
             }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Meal = await _context.Meals.FindAsync(id);
+            FoodMeal = await _context.FoodMeals.FindAsync(id);
 
-            if (Meal != null)
+            if (FoodMeal != null)
             {
-                _context.Meals.Remove(Meal);
+                _context.FoodMeals.Remove(FoodMeal);
                 await _context.SaveChangesAsync();
             }
 

@@ -4,16 +4,18 @@ using FoodTrackerApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace FoodTrackerApp.Data.Migrations
+namespace FoodTrackerApp.Migrations
 {
     [DbContext(typeof(TrackerDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220401210638_mig8")]
+    partial class mig8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,13 +64,7 @@ namespace FoodTrackerApp.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("BlacklistedFoods");
                 });
@@ -98,13 +94,7 @@ namespace FoodTrackerApp.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("FavoriteFoods");
                 });
@@ -154,10 +144,6 @@ namespace FoodTrackerApp.Data.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<string>("MealUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Portion")
                         .HasColumnType("int");
 
@@ -165,37 +151,30 @@ namespace FoodTrackerApp.Data.Migrations
 
                     b.HasIndex("FoodID");
 
-                    b.HasIndex("MealUserId");
-
                     b.ToTable("FoodMeals");
                 });
 
             modelBuilder.Entity("FoodTrackerApp.Data.Entities.Meal", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("MealUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
-
-                    b.HasIndex("MealUserId");
-
-                    b.HasIndex("UserId1");
+                    b.HasKey("Id");
 
                     b.ToTable("Meals");
                 });
@@ -415,6 +394,10 @@ namespace FoodTrackerApp.Data.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -435,28 +418,6 @@ namespace FoodTrackerApp.Data.Migrations
                         .HasForeignKey("FoodsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FoodTrackerApp.Data.Entities.BlacklistedFood", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FoodTrackerApp.Data.Entities.FavoriteFood", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FoodTrackerApp.Data.Entities.Food", b =>
@@ -485,29 +446,14 @@ namespace FoodTrackerApp.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("FoodTrackerApp.Data.Entities.Meal", "Meal")
-                        .WithMany("FoodMeals")
-                        .HasForeignKey("MealUserId")
+                        .WithMany()
+                        .HasForeignKey("MealId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Food");
 
                     b.Navigation("Meal");
-                });
-
-            modelBuilder.Entity("FoodTrackerApp.Data.Entities.Meal", b =>
-                {
-                    b.HasOne("FoodTrackerApp.Data.Entities.Meal", null)
-                        .WithMany("Meals")
-                        .HasForeignKey("MealUserId");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -574,13 +520,6 @@ namespace FoodTrackerApp.Data.Migrations
             modelBuilder.Entity("FoodTrackerApp.Data.Entities.Food", b =>
                 {
                     b.Navigation("FoodMeals");
-                });
-
-            modelBuilder.Entity("FoodTrackerApp.Data.Entities.Meal", b =>
-                {
-                    b.Navigation("FoodMeals");
-
-                    b.Navigation("Meals");
                 });
 #pragma warning restore 612, 618
         }

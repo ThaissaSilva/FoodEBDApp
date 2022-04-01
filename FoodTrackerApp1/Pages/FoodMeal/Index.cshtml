@@ -1,0 +1,48 @@
+﻿@page
+@model FoodTrackerApp.Pages.FoodMeal.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodMeal[0].Food)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodMeal[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodMeal[0].Portion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.FoodMeal) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Food.FoodName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Portion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", Model,  new { foodId = item.FoodID, mealId = item.MealId }) |
+                @Html.ActionLink("Details", "Details", Model, new { foodId = item.FoodID, mealId = item.MealId }) |
+                @Html.ActionLink("Delete", "Delete", Model,  new { foodId = item.FoodID, mealId = item.MealId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

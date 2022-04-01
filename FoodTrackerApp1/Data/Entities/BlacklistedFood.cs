@@ -6,8 +6,6 @@ namespace FoodTrackerApp.Data.Entities
         [Key]
         public string UserId { get; set; }
 
-        public IdentityUser User { get; set; }
-
         public List<Food> Foods { get; set; }
 
         public DateTime CreatedOn { get; set; }

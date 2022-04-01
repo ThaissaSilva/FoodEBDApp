@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace FoodTrackerApp.Pages.FavoriteFood
+﻿namespace FoodTrackerApp.Pages.FavoriteFood
 {
     public class CreateModel : PageModel
     {
         private readonly FoodTrackerApp.Data.TrackerDbContext _context;
 
-        public CreateModel(FoodTrackerApp.Data.TrackerDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public CreateModel(FoodTrackerApp.Data.TrackerDbContext context, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 
@@ -35,6 +36,10 @@ namespace FoodTrackerApp.Pages.FavoriteFood
             {
                 return Page();
             }
+
+            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            FavoriteFood.UserId = userId;
 
             _context.FavoriteFoods.Add(FavoriteFood);
             await _context.SaveChangesAsync();

@@ -1,4 +1,5 @@
-﻿namespace FoodTrackerApp.Pages.Meal
+﻿
+namespace FoodTrackerApp.Pages.FoodMeal
 {
     public class EditModel : PageModel
     {
@@ -10,21 +11,23 @@
         }
 
         [BindProperty]
-        public FoodTrackerApp.Data.Entities.Meal Meal { get; set; }
+        public FoodTrackerApp.Data.Entities.FoodMeal FoodMeal { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync(int? foodId, int? mealId)
         {
-            if (id == null)
+            if ( foodId == null && mealId == null)
             {
                 return NotFound();
             }
 
-            Meal = await _context.Meals.FirstOrDefaultAsync(m => m.Id == id);
+            FoodMeal = await _context.FoodMeals
+                .Include(f => f.Food).FirstOrDefaultAsync(m => m.MealId == mealId && m.FoodID == foodId );
 
-            if (Meal == null)
+            if (FoodMeal == null)
             {
                 return NotFound();
             }
+           ViewData["FoodID"] = new SelectList(_context.Foods, "Id", "FoodName");
             return Page();
         }
 
@@ -37,7 +40,7 @@
                 return Page();
             }
 
-            _context.Attach(Meal).State = EntityState.Modified;
+            _context.Attach(FoodMeal).State = EntityState.Modified;
 
             try
             {
@@ -45,7 +48,7 @@
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MealExists(Meal.Id))
+                if (!FoodMealExists(FoodMeal.MealId))
                 {
                     return NotFound();
                 }
@@ -58,9 +61,9 @@
             return RedirectToPage("./Index");
         }
 
-        private bool MealExists(int id)
+        private bool FoodMealExists(int id)
         {
-            return _context.Meals.Any(e => e.Id == id);
+            return _context.FoodMeals.Any(e => e.MealId == id);
         }
     }
 }
