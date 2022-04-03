@@ -12,6 +12,12 @@
         {
         }
 
+
+        public Category(int id)
+        {
+            Id = id;
+        }
+
         public Category(string name)
         {
             Name = name;

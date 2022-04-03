@@ -9,6 +9,7 @@
         public DbSet<Food> Foods { get; set; }
         public DbSet<FoodMeal> FoodMeals { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        //public DbSet<ActionFood> ActionFoods { get; set; }
         public DbSet<User> Users { get; set; }
 
         public TrackerDbContext(DbContextOptions<TrackerDbContext> options)

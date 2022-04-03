@@ -12,7 +12,7 @@
         {
         }
 
-        public Action(string name)
+        public Action(string name) 
         {
             this.Name = name;
             this.Foods = new HashSet<Food>();

@@ -21,7 +21,8 @@
             var foods = await _context.Foods.ToListAsync(); 
             IEnumerable<string> items = foods.Select(f => f.FoodName);
             
-            Foods = new SelectList(foods, "Id", "FoodName");
+            ViewData["FoodID"] = new SelectList(foods, "Id", "FoodName");
+
 
             return Page();
         }
@@ -40,6 +41,13 @@
             var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             BlacklistedFood.UserId = userId;
+
+            BlacklistedFood.CreatedOn = DateTime.Now;
+
+            foreach (var item in SelectedFoods)
+            {
+                BlacklistedFood.Foods.Add(await _context.Foods.FirstAsync(f => f.Id == item));            
+            }
 
             _context.BlacklistedFoods.Add(BlacklistedFood);
             await _context.SaveChangesAsync();

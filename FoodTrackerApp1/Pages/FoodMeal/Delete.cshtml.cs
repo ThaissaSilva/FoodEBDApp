@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using FoodTrackerApp.Data;
-using FoodTrackerApp.Data.Entities;
-
+﻿
 namespace FoodTrackerApp.Pages.FoodMeal
 {
     public class DeleteModel : PageModel
@@ -39,14 +30,14 @@ namespace FoodTrackerApp.Pages.FoodMeal
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int? foodId, int? mealId)
         {
-            if (id == null)
+            if (foodId == null && mealId == null)
             {
                 return NotFound();
             }
 
-            FoodMeal = await _context.FoodMeals.FindAsync(id);
+            FoodMeal = await _context.FoodMeals.FirstAsync(f => f.FoodID == foodId.Value && f.MealId == mealId.Value) ;
 
             if (FoodMeal != null)
             {

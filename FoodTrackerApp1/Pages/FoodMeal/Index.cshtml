@@ -37,10 +37,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Portion)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", Model,  new { foodId = item.FoodID, mealId = item.MealId }) |
-                @Html.ActionLink("Details", "Details", Model, new { foodId = item.FoodID, mealId = item.MealId }) |
-                @Html.ActionLink("Delete", "Delete", Model,  new { foodId = item.FoodID, mealId = item.MealId })
+            <td>              
+                <a href="FoodMeal/Edit/?mealId=@item.MealId&foodId=@item.FoodID">Edit</a> |
+                <a href="FoodMeal/Details/?mealId=@item.MealId&foodId=@item.FoodID">Details</a> |
+                <a href="FoodMeal/Delete/?mealId=@item.MealId&foodId=@item.FoodID">Delete</a>                
             </td>
         </tr>
 }

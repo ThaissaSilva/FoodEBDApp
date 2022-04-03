@@ -12,22 +12,12 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FavoriteFood.UserId" class="control-label"></label>
-                <input asp-for="FavoriteFood.UserId" class="form-control" />
-                <span asp-validation-for="FavoriteFood.UserId" class="text-danger"></span>
-            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>           
             <div class="form-group"> 
                 <select asp-for="SelectedFoods" class="form-control" asp-items="@Model.Foods">
                     <option value="">-- Select Test --</option>
                     </select>              
-            </div>
-            <div class="form-group">
-                <label asp-for="FavoriteFood.CreatedOn" class="control-label"></label>
-                <input asp-for="FavoriteFood.CreatedOn" class="form-control" />
-                <span asp-validation-for="FavoriteFood.CreatedOn" class="text-danger"></span>
-            </div>
+            </div>         
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

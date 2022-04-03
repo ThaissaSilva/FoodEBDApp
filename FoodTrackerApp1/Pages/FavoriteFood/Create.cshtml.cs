@@ -40,6 +40,7 @@
             var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             FavoriteFood.UserId = userId;
+            FavoriteFood.CreatedOn = DateTime.Now;
 
             _context.FavoriteFoods.Add(FavoriteFood);
             await _context.SaveChangesAsync();

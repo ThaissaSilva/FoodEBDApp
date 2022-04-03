@@ -11,11 +11,11 @@ namespace FoodTrackerApp.Services
         }
 
         public async Task FileImportAsync(MemoryStream memoryStream)
-        {            
+        {
             // Upload the file if less than 2 MB
             using (var ms = new ExcelPackage(memoryStream))
             {
-                await InsertActions(ms);                
+                await InsertActions(ms);
                 await InsertCategories(ms);
                 await InsertFoods(ms);
             };
@@ -82,9 +82,9 @@ namespace FoodTrackerApp.Services
             var columSize = ws.Dimension.Columns;
 
             for (int l = 2; l <= rowSize; l++)
-            {               
+            {
                 var cName = 2;
-              
+
                 var name = ws.Cells[l, cName].Value.ToString();
 
                 var category = new Data.Entities.Category(name);
@@ -104,15 +104,43 @@ namespace FoodTrackerApp.Services
             {
                 var cName = 2;
 
+                var cCategory = 3;
+
                 var name = ws.Cells[l, cName].Value.ToString();
 
-                var food = new Data.Entities.Food(name);
+                var category = ws.Cells[l, cCategory].Value.ToString();
+
+                var food = new Data.Entities.Food(name, cCategory);
 
                 _context.Foods.Add(food);
                 await _context.SaveChangesAsync();
-
-                //falta acrescentar o Id da category, ver se deve aperecer no page ou s'o na base de dados
             }
+
         }
-    }  
+
+        //private async Task InsertFoodAction(ExcelPackage ms)
+        //{
+        //    ExcelWorksheet ws = ms.Workbook.Worksheets[3];
+        //    var rowSize = ws.Dimension.Rows;
+        //    var columSize = ws.Dimension.Columns;
+
+        //    for (int l = 2; l <= rowSize; l++)
+        //    {
+        //        var cFood = 1;
+
+        //        var cAction = 2;
+
+        //        var food = ws.Cells[l, cFood].Value.ToString();
+
+        //        var action = ws.Cells[l, cAction].Value.ToString();
+
+        //        var foddAction = new Data.Entities.FoodAction(n, cCategory);
+
+        //        _context.FoodAction
+        //        await _context.SaveChangesAsync();
+
+        //        //falta acrescentar o Id da category, ver se deve aperecer no page ou s'o na base de dados
+        //    }
+        //}
+    }
 }

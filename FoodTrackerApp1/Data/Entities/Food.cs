@@ -16,9 +16,10 @@
         {
         }
 
-        public Food(string foodName)
+        public Food(string foodName, int category)
         {
             this.FoodName = foodName;
+            this.Category = new Category(category);
             this.Actions = new HashSet<Action>();
         }
 

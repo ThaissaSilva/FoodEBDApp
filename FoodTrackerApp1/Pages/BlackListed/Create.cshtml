@@ -12,21 +12,11 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="BlacklistedFood.UserId" class="control-label"></label>
-                <input asp-for="BlacklistedFood.UserId" class="form-control" />
-                <span asp-validation-for="BlacklistedFood.UserId" class="text-danger"></span>
-            </div>           
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>                     
             <div class="form-group"> 
-                <select asp-for="SelectedFoods" class="form-control" asp-items="@Model.Foods">
+                <select multiple="multiple" asp-for="SelectedFoods" class="form-control" asp-items="ViewBag.FoodId">
                     <option value="">-- Select Test --</option>
                     </select>              
-            </div>
-            <div class="form-group">
-                <label asp-for="BlacklistedFood.CreatedOn" class="control-label"></label>
-                <input asp-for="BlacklistedFood.CreatedOn" class="form-control" />
-                <span asp-validation-for="BlacklistedFood.CreatedOn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
