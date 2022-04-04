@@ -3,7 +3,7 @@
 @{
 }
 
-<h4>Excel Import</h4>
+<h4>Area Administrador</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -11,7 +11,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <dt>
-                    <label asp-for="FileUpload.formFile" class="control-label">Import Here:</label>
+                    <label asp-for="FileUpload.formFile" class="control-label">Importar Excel Aqui:</label>
                 </dt>
                 <dd>
                     <input asp-for="FileUpload.formFile" class="form-control" type="file">
@@ -19,8 +19,17 @@
                 </dd>
             </div>
             <div class="form-group">
-                <input asp-page-handler="Upload" class="btn btn-primary" type="submit" value="Upload" />
+                <input asp-page-handler="Upload" class="btn btn-primary" type="submit" value="Importar" />
+            </div>          
+            <div class="form-group">
+                <p>Operações Ação <a href="https://localhost:7280/Action"> Acessar</a></p>
             </div>
+            <div class="form-group">
+                <p>Operações Categoria <a href="https://localhost:7280/Category"> Acessar</a></p>
+            </div>  
+            <div class="form-group">
+                <p>Operações Alimento <a href="https://localhost:7280/Food"> Acessar</a></p>
+            </div> 
         </form>
     </div>
 </div>

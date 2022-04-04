@@ -2,9 +2,12 @@
 {
     public class FoodMeal
     {
-        [Key, Column(Order = 0)]
-        public int MealId { get; set; }
+        [Key]
+        public string UserID { get; set; }
+
         [Key, Column(Order = 1)]
+        public int MealId { get; set; }
+        [Key, Column(Order = 2)]
         public int FoodID { get; set; }
 
         public virtual Meal Meal { get; set; }
