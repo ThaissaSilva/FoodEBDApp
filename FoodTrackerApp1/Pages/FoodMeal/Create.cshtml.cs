@@ -1,5 +1,4 @@
-﻿
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace FoodTrackerApp.Pages.FoodMeal
 {
@@ -60,7 +59,7 @@ namespace FoodTrackerApp.Pages.FoodMeal
 
                     foreach (var a in actions)
                     {
-                        foods.Any(f => f.Actions.Contains(a));
+                        //foods.Any(f => f.Actions.Contains(a));
                     }
                 }
             }

@@ -22,14 +22,14 @@
         </tr>
     </thead>
     <tbody>
-    @*    @foreach (var item in Model.BlacklistedFood.Foods)
+        @foreach (var item in Model.BlacklistedFood.Foods)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.FoodName)
                 </td>
             </tr>
-        }*@
+        }
     <td>
         <a asp-page="./Edit" asp-route-id="@Model.BlacklistedFood.UserId">Edit</a> |
         <a asp-page="./Details" asp-route-id="@Model.BlacklistedFood.UserId">Details</a> |

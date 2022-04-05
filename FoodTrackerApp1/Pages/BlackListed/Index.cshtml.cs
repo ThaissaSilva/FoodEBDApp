@@ -1,7 +1,4 @@
-﻿
-using FoodTrackerApp.Data.Entities;
-
-namespace FoodTrackerApp.Pages.BlackListed
+﻿namespace FoodTrackerApp.Pages.BlackListed
 {
     public class IndexModel : PageModel
     {

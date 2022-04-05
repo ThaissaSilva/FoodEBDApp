@@ -27,7 +27,6 @@
             
             var actions = await _context.Actions.ToListAsync();
 
-
             foreach ( var mealsInDate in mealsByDate)
             {
                 foreach(var eachMeal in mealsInDate.ToList())
@@ -38,11 +37,10 @@
 
                     foreach (var a in actions)
                     {
-                        foods.Any(f => f.Actions.Contains(a));
+                        //foods.Any(f => f.Actions.Contains(a));
                     }
                 }
             }
         }
-
     }
 }

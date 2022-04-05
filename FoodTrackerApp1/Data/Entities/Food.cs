@@ -8,22 +8,17 @@
         [Required]
         public string FoodName { get; set; }
 
-        //FK
-        [ForeignKey("CategoryId")]
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
 
         public Food()
         {
         }
 
-        public Food(string foodName, int category)
+        public Food(string foodName, Category category)
         {
             this.FoodName = foodName;
-            this.Category = new Category(category);
-            this.Actions = new HashSet<Action>();
+            this.Category = category;
         }
-
-        public virtual ICollection<Action> Actions { get; set; }
-        public virtual ICollection<FoodMeal> FoodMeals { get; set; }
     }
 }
