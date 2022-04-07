@@ -4,6 +4,7 @@ using FoodTrackerApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodTrackerApp.Migrations
 {
     [DbContext(typeof(TrackerDbContext))]
-    partial class TrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220407184806_mig10")]
+    partial class mig10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,12 +72,7 @@ namespace FoodTrackerApp.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FoodId")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId");
-
-                    b.HasIndex("FoodId");
 
                     b.ToTable("BlacklistedFoods");
                 });
@@ -118,6 +115,9 @@ namespace FoodTrackerApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("BlacklistedFoodUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -125,9 +125,12 @@ namespace FoodTrackerApp.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FoodName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BlacklistedFoodUserId");
 
                     b.HasIndex("CategoryId");
 
@@ -432,15 +435,12 @@ namespace FoodTrackerApp.Migrations
                     b.Navigation("Food");
                 });
 
-            modelBuilder.Entity("FoodTrackerApp.Data.Entities.BlacklistedFood", b =>
-                {
-                    b.HasOne("FoodTrackerApp.Data.Entities.Food", null)
-                        .WithMany("BlacklistedFoods")
-                        .HasForeignKey("FoodId");
-                });
-
             modelBuilder.Entity("FoodTrackerApp.Data.Entities.Food", b =>
                 {
+                    b.HasOne("FoodTrackerApp.Data.Entities.BlacklistedFood", null)
+                        .WithMany("Foods")
+                        .HasForeignKey("BlacklistedFoodUserId");
+
                     b.HasOne("FoodTrackerApp.Data.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
@@ -524,14 +524,14 @@ namespace FoodTrackerApp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FoodTrackerApp.Data.Entities.FavoriteFood", b =>
+            modelBuilder.Entity("FoodTrackerApp.Data.Entities.BlacklistedFood", b =>
                 {
                     b.Navigation("Foods");
                 });
 
-            modelBuilder.Entity("FoodTrackerApp.Data.Entities.Food", b =>
+            modelBuilder.Entity("FoodTrackerApp.Data.Entities.FavoriteFood", b =>
                 {
-                    b.Navigation("BlacklistedFoods");
+                    b.Navigation("Foods");
                 });
 #pragma warning restore 612, 618
         }

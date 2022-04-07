@@ -6,31 +6,46 @@
 }
 
 <h1>Index</h1>
+@if (!Model.Foods.Any())
+{
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+}else {
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+    <p>
+        <a asp-page="Create">Add New</a>
+    </p>
+}
+
+
 <table class="table">
-    <thead>
+      <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BlacklistedFood[0].CreatedOn)
+                @Html.DisplayNameFor(model => model.Foods[0].FoodName)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Foods[0].BlacklistedFoods[0].CreatedOn)
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.BlacklistedFood) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.UserId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.UserId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.UserId">Delete</a>
-            </td>
-        </tr>
-}
+    <tbody>
+        @foreach (var item in Model.Foods)
+        {
+            <tr>
+                <td>
+                @Html.DisplayFor(modelItem => item.FoodName)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.BlacklistedFoods[0].CreatedOn)
+                </td>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.FoodName">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.FoodName">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

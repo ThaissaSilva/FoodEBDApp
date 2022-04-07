@@ -11,13 +11,23 @@
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
+            FoodsFromDB = await _context.Foods.ToListAsync();
+            
+            Foods = new SelectList(FoodsFromDB, "Id", "FoodName");
+
             return Page();
         }
 
         [BindProperty]
-        public BlacklistedFood BlacklistedFood { get; set; }
+        public int SelectedFoodId { get; set; }
+        public SelectList Foods { get; set; }
+
+        public List<FoodTrackerApp.Data.Entities.Food> FoodsFromDB { get; set; }
+
+        [BindProperty]
+        public FoodTrackerApp.Data.Entities.Food Food { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -26,12 +36,23 @@
             {
                 return Page();
             }
+
             var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            BlacklistedFood.UserId = userId;
+            Food = _context.Foods.FirstOrDefault(f => f.Id == SelectedFoodId);
 
-            BlacklistedFood.CreatedOn = DateTime.Now;
-            _context.BlacklistedFoods.Add(BlacklistedFood);
+
+            if (Food.BlacklistedFoods == null)
+            {
+                Food.BlacklistedFoods = new List<FoodTrackerApp.Data.Entities.BlacklistedFood>();
+            }
+
+            Food.BlacklistedFoods.Add(new FoodTrackerApp.Data.Entities.BlacklistedFood(userId));
+
+            var blacklistedFood = await _context.BlacklistedFoods.ToListAsync();
+                
+
+            _context.Foods.Update(Food);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

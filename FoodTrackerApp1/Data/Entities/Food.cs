@@ -5,8 +5,10 @@
         [Key]
         public int Id { get; set; }
 
-        [Required]
+     
         public string FoodName { get; set; }
+
+        public virtual List<BlacklistedFood> BlacklistedFoods { get; set; }
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }
