@@ -15,11 +15,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="BlacklistedFood.UserId" />
             <div class="form-group">
-                <label asp-for="BlacklistedFood.Foods" class="control-label"></label>
-                <select asp-for="BlacklistedFood.Foods" class="form-control" />
-                <span asp-validation-for="BlacklistedFood.Foods" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="BlacklistedFood.CreatedOn" class="control-label"></label>
                 <input asp-for="BlacklistedFood.CreatedOn" class="form-control" />
                 <span asp-validation-for="BlacklistedFood.CreatedOn" class="text-danger"></span>

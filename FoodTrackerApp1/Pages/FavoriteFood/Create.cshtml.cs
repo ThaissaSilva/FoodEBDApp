@@ -18,7 +18,7 @@
 
         public async Task<IActionResult> OnGet()
         {
-            var foods = await _context.Foods.ToListAsync();  //meal 
+            var foods = await _context.Foods.ToListAsync(); 
             IEnumerable<string> items = foods.Select(f => f.FoodName);
 
             Foods = new SelectList(foods, "Id", "FoodName");

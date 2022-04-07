@@ -4,7 +4,9 @@ namespace FoodTrackerApp.Data.Entities
     public class BlacklistedFood
     {
         [Key]
-        public string UserId { get; set; }
+        public string UserId{ get; set; }
+
+        public User User { get; set; }
 
         public List<Food> Foods { get; set; }
 
@@ -20,3 +22,4 @@ namespace FoodTrackerApp.Data.Entities
         }
     }
 }
+

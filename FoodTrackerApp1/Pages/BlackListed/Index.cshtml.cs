@@ -1,27 +1,29 @@
-﻿namespace FoodTrackerApp.Pages.BlackListed
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using FoodTrackerApp.Data;
+using FoodTrackerApp.Data.Entities;
+
+namespace FoodTrackerApp.Pages.BlackListed
 {
     public class IndexModel : PageModel
     {
         private readonly FoodTrackerApp.Data.TrackerDbContext _context;
 
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public IndexModel(FoodTrackerApp.Data.TrackerDbContext context, IHttpContextAccessor httpContextAccessor)
+        public IndexModel(FoodTrackerApp.Data.TrackerDbContext context)
         {
-            _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 
-        public BlacklistedFood BlacklistedFood { get;set; }
+        public IList<BlacklistedFood> BlacklistedFood { get;set; }
 
         public async Task OnGetAsync()
         {
-
-            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            BlacklistedFood = await _context.BlacklistedFoods.FirstAsync(b => b.UserId == userId);
-
-            _context.BlacklistedFoods.Remove(BlacklistedFood);
+            BlacklistedFood = await _context.BlacklistedFoods.ToListAsync();
         }
     }
 }
