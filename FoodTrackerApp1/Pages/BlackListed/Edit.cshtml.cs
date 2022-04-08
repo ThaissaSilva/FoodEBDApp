@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using FoodTrackerApp.Data;
-using FoodTrackerApp.Data.Entities;
-
-namespace FoodTrackerApp.Pages.BlackListed
+﻿namespace FoodTrackerApp.Pages.BlackListed
 {
     public class EditModel : PageModel
     {
@@ -23,14 +12,14 @@ namespace FoodTrackerApp.Pages.BlackListed
         [BindProperty]
         public BlacklistedFood BlacklistedFood { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            BlacklistedFood = await _context.BlacklistedFoods.FirstOrDefaultAsync(m => m.UserId == id);
+            BlacklistedFood = await _context.BlacklistedFoods.FirstOrDefaultAsync(m => m.Id == id);
 
             if (BlacklistedFood == null)
             {
@@ -56,7 +45,7 @@ namespace FoodTrackerApp.Pages.BlackListed
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BlacklistedFoodExists(BlacklistedFood.UserId))
+                if (!BlacklistedFoodExists(BlacklistedFood.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +58,9 @@ namespace FoodTrackerApp.Pages.BlackListed
             return RedirectToPage("./Index");
         }
 
-        private bool BlacklistedFoodExists(string id)
+        private bool BlacklistedFoodExists(int id)
         {
-            return _context.BlacklistedFoods.Any(e => e.UserId == id);
+            return _context.BlacklistedFoods.Any(e => e.Id == id);
         }
     }
 }

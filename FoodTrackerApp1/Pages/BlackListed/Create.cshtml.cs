@@ -13,21 +13,20 @@
 
         public async Task<IActionResult> OnGet()
         {
-            FoodsFromDB = await _context.Foods.ToListAsync();
-            
+            FoodsFromDB = await _context.Foods.ToListAsync();            
             Foods = new SelectList(FoodsFromDB, "Id", "FoodName");
 
             return Page();
         }
 
         [BindProperty]
-        public int SelectedFoodId { get; set; }
+        public int FoodId { get; set; }
         public SelectList Foods { get; set; }
 
         public List<FoodTrackerApp.Data.Entities.Food> FoodsFromDB { get; set; }
 
         [BindProperty]
-        public FoodTrackerApp.Data.Entities.Food Food { get; set; }
+        public FoodTrackerApp.Data.Entities.BlacklistedFood BlackListedFood { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -37,22 +36,13 @@
                 return Page();
             }
 
-            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            FoodsFromDB = await _context.Foods.ToListAsync();
 
-            Food = _context.Foods.FirstOrDefault(f => f.Id == SelectedFoodId);
+            BlackListedFood.User = await _context.Users.FirstAsync(u => u.Email == User.Identity.Name);
+            BlackListedFood.Food = FoodsFromDB.FirstOrDefault(f => f.Id == FoodId);
+            BlackListedFood.CreatedOn = DateTime.Now;
 
-
-            if (Food.BlacklistedFoods == null)
-            {
-                Food.BlacklistedFoods = new List<FoodTrackerApp.Data.Entities.BlacklistedFood>();
-            }
-
-            Food.BlacklistedFoods.Add(new FoodTrackerApp.Data.Entities.BlacklistedFood(userId));
-
-            var blacklistedFood = await _context.BlacklistedFoods.ToListAsync();
-                
-
-            _context.Foods.Update(Food);
+            _context.BlacklistedFoods.Add(BlackListedFood);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

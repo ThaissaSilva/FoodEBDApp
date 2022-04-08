@@ -14,7 +14,9 @@ namespace FoodTrackerApp.Pages.Meal
 
         public async Task OnGetAsync()
         {
-            Meal = await _context.Meals.ToListAsync();
+            var user = await _context.Users.FirstAsync(u => u.Email == User.Identity.Name); ;
+
+            Meal = await _context.Meals.Where(m => m.User == user).ToListAsync();
         }
     }
 }

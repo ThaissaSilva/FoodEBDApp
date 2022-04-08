@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using FoodTrackerApp.Data;
-using FoodTrackerApp.Data.Entities;
-
+﻿
 namespace FoodTrackerApp.Pages.BlackListed
 {
     public class DeleteModel : PageModel
@@ -22,14 +13,14 @@ namespace FoodTrackerApp.Pages.BlackListed
         [BindProperty]
         public BlacklistedFood BlacklistedFood { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            BlacklistedFood = await _context.BlacklistedFoods.FirstOrDefaultAsync(m => m.UserId == id);
+            BlacklistedFood = await _context.BlacklistedFoods.FirstOrDefaultAsync(m => m.Id == id);
 
             if (BlacklistedFood == null)
             {
@@ -38,7 +29,7 @@ namespace FoodTrackerApp.Pages.BlackListed
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {

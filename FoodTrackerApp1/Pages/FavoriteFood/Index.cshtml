@@ -6,31 +6,45 @@
 }
 
 <h1>Index</h1>
+@if (!Model.FavoriteFood.Any())
+{
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+}else {
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+    <p>
+        <a asp-page="Create">Add New</a>
+    </p>
+}
+
 <table class="table">
-    <thead>
+      <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FavoriteFood[0].Food.FoodName)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.FavoriteFood[0].CreatedOn)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.FavoriteFood) {
-        <tr>
-            <td>
+    <tbody>
+        @foreach (var item in Model.FavoriteFood)
+        {
+            <tr>
+                <td>
+                @Html.DisplayFor(modelItem => item.Food.FoodName)
+                </td>
+                <td>
                 @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.UserId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.UserId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.UserId">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

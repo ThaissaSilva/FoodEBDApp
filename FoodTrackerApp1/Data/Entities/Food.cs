@@ -4,13 +4,11 @@
     {
         [Key]
         public int Id { get; set; }
-
-     
+             
         public string FoodName { get; set; }
 
-        public virtual List<BlacklistedFood> BlacklistedFoods { get; set; }
-
         public int CategoryId { get; set; }
+
         public Category Category { get; set; }
 
         public Food()

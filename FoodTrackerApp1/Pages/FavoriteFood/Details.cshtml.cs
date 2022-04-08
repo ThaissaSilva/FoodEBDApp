@@ -1,5 +1,4 @@
-﻿
-namespace FoodTrackerApp.Pages.FavoriteFood
+﻿namespace FoodTrackerApp.Pages.FavoriteFood
 {
     public class DetailsModel : PageModel
     {
@@ -12,14 +11,14 @@ namespace FoodTrackerApp.Pages.FavoriteFood
 
         public FoodTrackerApp.Data.Entities.FavoriteFood FavoriteFood { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            FavoriteFood = await _context.FavoriteFoods.FirstOrDefaultAsync(m => m.UserId == id);
+            FavoriteFood = await _context.FavoriteFoods.FirstOrDefaultAsync(m => m.Id == id);
 
             if (FavoriteFood == null)
             {

@@ -1,5 +1,4 @@
-﻿
-namespace FoodTrackerApp.Pages.FavoriteFood
+﻿namespace FoodTrackerApp.Pages.FavoriteFood
 {
     public class DeleteModel : PageModel
     {
@@ -13,14 +12,14 @@ namespace FoodTrackerApp.Pages.FavoriteFood
         [BindProperty]
         public FoodTrackerApp.Data.Entities.FavoriteFood FavoriteFood { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            FavoriteFood = await _context.FavoriteFoods.FirstOrDefaultAsync(m => m.UserId == id);
+            FavoriteFood = await _context.FavoriteFoods.FirstOrDefaultAsync(m => m.Id == id);
 
             if (FavoriteFood == null)
             {
@@ -29,7 +28,7 @@ namespace FoodTrackerApp.Pages.FavoriteFood
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
             {

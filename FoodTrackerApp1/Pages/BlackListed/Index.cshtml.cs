@@ -1,5 +1,4 @@
-﻿
-namespace FoodTrackerApp.Pages.BlackListed
+﻿namespace FoodTrackerApp.Pages.BlackListed
 {
     public class IndexModel : PageModel
     {
@@ -11,16 +10,16 @@ namespace FoodTrackerApp.Pages.BlackListed
             _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
+
         public string UserId { get; set; }
 
-        public List<FoodTrackerApp.Data.Entities.Food> Foods { get; set; }
+        public List<FoodTrackerApp.Data.Entities.BlacklistedFood> BlacklistedFood { get; set; }
 
         public async Task OnGetAsync()
         {
-            UserId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users.FirstAsync(u => u.Email == User.Identity.Name);
 
-            Foods = _context.Foods.Where(b => b.BlacklistedFoods.Any(a => a.UserId == UserId)).ToList();
-
+            BlacklistedFood = await _context.BlacklistedFoods.Where(b => b.User == user).Include(b => b.Food).ToListAsync();
         }
     }
 }

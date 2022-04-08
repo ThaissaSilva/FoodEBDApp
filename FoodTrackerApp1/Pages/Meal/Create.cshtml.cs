@@ -1,18 +1,11 @@
-﻿
-using System.Security.Claims;
-
-
-namespace FoodTrackerApp.Pages.Meal
+﻿namespace FoodTrackerApp.Pages.Meal
 {
     public class CreateModel : PageModel
     {
         private readonly FoodTrackerApp.Data.TrackerDbContext _context;
-        
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public CreateModel(FoodTrackerApp.Data.TrackerDbContext context, IHttpContextAccessor httpContextAccessor)
+       
+        public CreateModel(FoodTrackerApp.Data.TrackerDbContext context)
         {
-            _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 
@@ -31,10 +24,8 @@ namespace FoodTrackerApp.Pages.Meal
             {
                 return Page();
             }
-            
-            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            Meal.UserId = userId;
+            Meal.User = await _context.Users.FirstAsync(u => u.Email == User.Identity.Name); ;
 
             _context.Meals.Add(Meal);
             await _context.SaveChangesAsync();

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Compile Remove="Data\DbContext\SeedDB.cs" />
+    <Compile Remove="Services\EatToBeatImplemantationServices.cs" />
   </ItemGroup>
 
   <ItemGroup>

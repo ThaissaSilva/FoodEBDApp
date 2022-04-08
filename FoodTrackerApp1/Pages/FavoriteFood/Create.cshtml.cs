@@ -3,7 +3,6 @@
     public class CreateModel : PageModel
     {
         private readonly FoodTrackerApp.Data.TrackerDbContext _context;
-
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public CreateModel(FoodTrackerApp.Data.TrackerDbContext context, IHttpContextAccessor httpContextAccessor)
@@ -12,20 +11,21 @@
             _context = context;
         }
 
-        public int[] SelectedFoods { get; set; }
-
-        public SelectList Foods { get; set; }
-
         public async Task<IActionResult> OnGet()
         {
-            var foods = await _context.Foods.ToListAsync(); 
-            IEnumerable<string> items = foods.Select(f => f.FoodName);
-
-            Foods = new SelectList(foods, "Id", "FoodName");
+            FoodsFromDB = await _context.Foods.ToListAsync();
+                
+            Foods = new SelectList(FoodsFromDB, "Id", "FoodName");
 
             return Page();
         }
-                
+
+        [BindProperty]
+        public int FoodId { get; set; }
+        public SelectList Foods { get; set; }
+
+        public List<FoodTrackerApp.Data.Entities.Food> FoodsFromDB { get; set; }
+
         [BindProperty]
         public FoodTrackerApp.Data.Entities.FavoriteFood FavoriteFood { get; set; }
 
@@ -37,9 +37,10 @@
                 return Page();
             }
 
-            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            FoodsFromDB = await _context.Foods.ToListAsync();
 
-            FavoriteFood.UserId = userId;
+            FavoriteFood.User = await _context.Users.FirstAsync(u => u.Email == User.Identity.Name);
+            FavoriteFood.Food = FoodsFromDB.FirstOrDefault(f => f.Id == FoodId);
             FavoriteFood.CreatedOn = DateTime.Now;
 
             _context.FavoriteFoods.Add(FavoriteFood);
@@ -47,6 +48,5 @@
 
             return RedirectToPage("./Index");
         }
-
     }
 }
