@@ -1,6 +1,5 @@
 ﻿namespace FoodTrackerApp.Data.DbContext
 {
-
     public static class ContextSeed
     {
         public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
@@ -10,7 +9,6 @@
             await roleManager.CreateAsync(new IdentityRole("BasicUser"));
 
         }
-
 
         public static async Task SeedAdminAsync(UserManager<User> userManager)
         {

@@ -11,36 +11,37 @@ namespace FoodTrackerApp.Pages.GeneralReport
 
         public string UserId { get; set; }
        
-        public IEnumerable<string> TopUsers { get; set; }
+        public string TopUsers { get; set; }
         
         public int CountUsers { get; set; }
 
         public int CountMeals { get; set; }
 
-        public IEnumerable<string> TopFoods { get; set; }
+        public string TopFoods { get; set; }
 
         public IActionResult OnGet()
         {
-            //TopUsers = GetTopUsers();
+            TopUsers = GetTopUsers();
             TopFoods = GetTopFoods();
             CountMeals = GetCountMeals();
-            //CountUsers = GetCountUsers();
+            CountUsers = GetCountUsers();
 
             return Page();
         }
 
-        //private async IEnumerable<Task> GetTopUsers()
-        //{
-        //    var user = await _context.Users.FirstAsync(u => u.Email == User.Identity.Name);
+        private string GetTopUsers()
+        {
+            var value = 5;
 
-        //    var value = 5;
-        //    var topActive = _context.Meals.GroupBy(ta => ta.User.Id).OrderByDescending(ta => ta.Count()).Take(value);
-        //    var activeName = String.Join(" | ", topActive.Select(an => an.First().User.Email));
+            var topActive = _context.Meals.Include(m => m.User).ToList()
+                .GroupBy(ta => ta.User).OrderByDescending(ta => ta.Count()).Take(value);
+           
+            var activeName = String.Join(" | ", topActive.Select(an => an.First().User.Email));
 
-        //    yield return activeName;
-        //}
+             return activeName;
+        }
 
-        private IEnumerable<string> GetTopFoods()
+        private string GetTopFoods()
         {
             var value = 10;
 
@@ -48,22 +49,22 @@ namespace FoodTrackerApp.Pages.GeneralReport
 
             var name = String.Join(" | ", topFood.Select(n => n.First().Food.FoodName));
 
-            yield return name;
+             return name;
         }
 
         private int GetCountMeals()
         {
-            var meals = _context.Meals.Count(m => m.UserId >= 0);
+            var meals = _context.Meals.Count();
 
             return meals;
         }
 
-        //private int GetCountUsers()
-        //{
-        //    //var users = _context.Users.Count(m => m.Id>= 0).ToString();
-            
-        //    return users;
-        //}
+        private int GetCountUsers()
+        {
+            var users = _context.Users.Count();
+
+            return users;
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {

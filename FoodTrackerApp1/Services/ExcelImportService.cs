@@ -28,7 +28,6 @@
 
             for (int l = 2; l <= rowSize; l++)
             {
-
                 var cName = 2;
 
                 var name = ws.Cells[l, cName].Value.ToString();

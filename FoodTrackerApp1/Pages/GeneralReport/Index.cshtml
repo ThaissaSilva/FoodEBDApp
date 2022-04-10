@@ -2,13 +2,13 @@
 @model FoodTrackerApp.Pages.GeneralReport.IndexModel
 
 @{
-     ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
 }
 
 <h4>GeneralReport</h4>
 
 <table class="table">
-      <thead>
+    <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.TopUsers)
@@ -24,4 +24,20 @@
             </th>
         </tr>
     </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.TopUsers)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.TopFoods)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CountMeals)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CountUsers)
+            </td>
+        </tr>
+    </tbody>
 </table>

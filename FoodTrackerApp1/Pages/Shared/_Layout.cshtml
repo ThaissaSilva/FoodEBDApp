@@ -24,9 +24,6 @@
                     @if (!User.IsInRole("Administrator")){
                         <ul class="navbar-nav flex-grow-1"> 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/MyUser/Index"> My Informations</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/InfoNutricional/Index">Informacao Nutricional </a>
                             </li>
                             <li class="nav-item">
@@ -35,11 +32,11 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/FavoriteFood/Index">My Favorite Food</a>
                             </li>
-                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/FoodMeal/Index">My FoodMeals</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Meal/Index">My Meals</a>
+                            </li>
+                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/FoodMeal/Index">My FoodMeals</a>
                             </li>
                         </ul>
                     }
