@@ -80,7 +80,9 @@ senha: "Aa123**"
 Depois de criar sua foodMeal, aparecerá uma lista com os alimentos adiconados, separados por: Name; Amount; Portion; 
 Sendo possível editar, detalhar ou deletar cada alimento da sua Refeicão.
 
-
+ ## General Report
+ Depois de adicionados os Users e as Meals já é possível visualizar dentro do utilizador "Administrador" : os 5 top users mais Ativos; os top 10 alimentos mais consumidos; o número total de refeicões já registradas; e o número total de utilizadores.  
+ 
  
 
  
