@@ -11,7 +11,6 @@
 
         public IList<FoodModel> Food { get; set; }
 
-
         public async Task OnGetAsync()
         {
             var foods = await _context.Foods

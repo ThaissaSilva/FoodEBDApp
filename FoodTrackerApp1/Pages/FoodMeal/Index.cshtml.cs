@@ -4,8 +4,7 @@ namespace FoodTrackerApp.Pages.FoodMeal
     public class IndexModel : PageModel
     {
         private readonly FoodTrackerApp.Data.TrackerDbContext _context;
-
-        
+       
         public IndexModel(FoodTrackerApp.Data.TrackerDbContext context)
         {           
             _context = context;

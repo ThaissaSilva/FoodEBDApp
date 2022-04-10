@@ -1,7 +1,3 @@
-using FoodTrackerApp.Model;
-using FoodTrackerApp.Services.Interfaces;
-using OfficeOpenXml;
-
 namespace FoodTrackerApp.Pages.Admin
 {
     public class IndexModel : PageModel

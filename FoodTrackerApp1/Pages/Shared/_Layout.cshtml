@@ -22,28 +22,47 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @if (!User.IsInRole("Administrator")){
-                        <ul class="navbar-nav flex-grow-1">
+                        <ul class="navbar-nav flex-grow-1"> 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                            </li>                      
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Index">Administrador</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/MyUser/Index"> My Informations</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/BlackListed/Index">BlackListed</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/InfoNutricional/Index">Informacao Nutricional </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/FavoriteFood/Index">FavoriteFood</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/BlackListed/Index"> My Black Listed</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/FavoriteFood/Index">My Favorite Food</a>
                             </li>
                              <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/FoodMeal/Index">FoodMeals</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/FoodMeal/Index">My FoodMeals</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Meal/Index">Meals</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Meal/Index">My Meals</a>
                             </li>
                         </ul>
                     }
-                    
+                    else
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Index">Importar Documento</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Food/Index">Alimentos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Action/Index">Ações</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Category/Index">Categorias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/GeneralReport/Index">GeneralReport</a>
+                            </li>                            
+                        </ul>
+                    }
                     <partial name="_LoginPartial" />
                 </div>
             </div>

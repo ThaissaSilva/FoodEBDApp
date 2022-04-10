@@ -3,11 +3,9 @@
     public class IndexModel : PageModel
     {
         private readonly FoodTrackerApp.Data.TrackerDbContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public IndexModel(FoodTrackerApp.Data.TrackerDbContext context, IHttpContextAccessor httpContextAccessor)
+        public IndexModel(FoodTrackerApp.Data.TrackerDbContext context)
         {
-            _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 

@@ -1,4 +1,7 @@
-﻿namespace FoodTrackerApp.Pages.FavoriteFood
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+namespace FoodTrackerApp.Pages.MyUser
 {
     public class IndexModel : PageModel
     {
@@ -11,13 +14,9 @@
 
         public string UserId { get; set; }
 
-        public List<FoodTrackerApp.Data.Entities.FavoriteFood> FavoriteFood { get;set; }
-
         public async Task OnGetAsync()
         {
             var user = await _context.Users.FirstAsync(u => u.Email == User.Identity.Name);
-
-            FavoriteFood = await _context.FavoriteFoods.Where(b => b.User == user).Include(b => b.Food).ToListAsync();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace FoodTrackerApp.Pages
         public void OnGet()
         {
 
+
         }
     }
 }

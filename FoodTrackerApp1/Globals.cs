@@ -11,3 +11,4 @@ global using FoodTrackerApp.Services.Interfaces;
 global using OfficeOpenXml;
 global using Microsoft.AspNetCore.Mvc.Rendering;
 global using System.Security.Claims; 
+global using FoodTrackerApp.Model;
